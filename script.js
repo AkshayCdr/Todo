@@ -8,7 +8,6 @@ const clearButton = document.querySelector(".clear");
 button.addEventListener("click", handleClick);
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") handleClick();
-  // console.log(e.key);
   if (e.key === "Escape") handleEscapeClick();
 });
 clearButton.addEventListener("click", handleClearButtonClick);
@@ -27,18 +26,40 @@ clearButton.addEventListener("click", handleClearButtonClick);
 //     blur.style.display = "none";
 //   }
 // });
+// function modalFunctions() {
+//   const blur = document.querySelector(".blur");
+//   const modal = document.querySelector(".modal");
+//   const edit = modal.querySelector(".edit");
+//   const del = modal.querySelector(".delete");
+//   if (modal) {
+//     blur.addEventListener("click", removeModal);
+//     del.addEventListener("click", () => console.log("clicked del"));
+//     edit.addEventListener("click", () => console.log("clicked edit"));
+//   }
+// }
+// modalFunctions();
+
 const blur = document.querySelector(".blur");
 const modal = document.querySelector(".modal");
+const edit = modal.querySelector(".edit");
+const del = modal.querySelector(".delete");
 if (modal) {
-  blur.addEventListener("click", () => {
-    modal.style.display = "none";
-    blur.style.display = "none";
-  });
+  blur.addEventListener("click", removeModal);
+  del.addEventListener("click", () => console.log("clicked del"));
+  edit.addEventListener("click", () => console.log("clicked edit"));
 }
 
+function removeModal() {
+  modal.style.display = "none";
+  blur.style.display = "none";
+}
+
+//hide modal using keyboard
 function handleEscapeClick() {
   const modal = document.querySelector(".modal");
-  if (modal.style.display === "block") modal.style.display = "none";
+  if (modal.style.display === "block") {
+    removeModal();
+  }
 }
 
 function handleClearButtonClick() {
@@ -77,7 +98,11 @@ function handleClick() {
   date.textContent = dateInput.value;
   description.textContent = descriptionInput.value;
   priority.textContent = priorityInput.value;
+
   input.value = "";
+  dateInput.value = "";
+  descriptionInput.value = "";
+  priorityInput.value = "";
 
   //adding classess icon
   circleIcon.classList.add("fa-regular", "fa-circle", "circle");
@@ -199,12 +224,6 @@ function saveTasks() {
   const task = document.querySelectorAll(".task");
   const tasks = [];
   [...task].forEach((ele) => {
-    // const isOverlined = ele.style.textDecoration === "line-through";
-    // tasks.push({
-    //   text: ele.textContent,
-    //   overlined: isOverlined,
-    // });
-    // console.log(ele);
     const text = ele.querySelector("p").textContent;
     const date = ele.querySelector(".date").textContent;
     const description = ele.querySelector(".description").textContent;
@@ -212,10 +231,6 @@ function saveTasks() {
 
     const isOverlined =
       ele.querySelector("p").style.textDecoration === "line-through";
-
-    // console.log(text);
-    // console.log(date);
-    // console.log(isOverlined);
     tasks.push({
       text: text,
       overlined: isOverlined,

@@ -39,6 +39,7 @@ body{
 .container h1{
     margin: 10px;
     padding: 5px;
+    color: rgb(127, 15, 147);
 }
 
 .tasks{

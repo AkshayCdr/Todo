@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- script  -->
+    <script src="script.js" type="module" defer></script>
+    <!-- custom style  -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Todo App</h1>
+      <div class="input">
+        <input
+          type="text"
+          name="taskName"
+          id=""
+          class="taskName"
+          placeholder="Task name"
+        />
+        <input
+          type="text"
+          name="description"
+          id="description"
+          class="description"
+          placeholder="description"
+        />
+
+        <select name="priority" id="prioritySelect" class="prioritySelect">
+          <option value="">--Choose Priority--</option>
+          <option value="1">Priority 1</option>
+          <option value="2">Priority 2</option>
+          <option value="3">Priority 3</option>
+          <option value="4">Priority 4</option>
+        </select>
+        <input type="date" name="" id="dateSelector" class="dateSelector" />
+        <!-- <input type="button" value="add" class="button" /> -->
+        <button class="btn add">
+          <i class="fa-solid fa-plus fa-lg" style="color: #74c0fc"></i>
+        </button>
+        <button class="btn clear">Clear</button>
+      </div>
+      <!-- <div class="tasks">
+        <div class="task">
+          <i class="fa-regular fa-circle circle"></i>
+          <p>First Task</p>
+          <div class="date">12/01/2024</div>
+          <i class="fa-solid fa-trash trash"></i>
+        </div>
+      </div>
+      <div class="tasks">
+        <div class="task">
+          <i class="fa-solid fa-check circle"></i>
+          <p>Second Task</p>
+          <div class="date">12/01/2024</div>
+          <i class="fa-solid fa-trash trash"></i>
+        </div>
+      </div> -->
+
+      <div class="tasks">
+        <div class="task">
+          <i class="fa-regular fa-circle circle"></i>
+          <p class="taskHeading">First Task</p>
+          <div class="date">12/01/2024</div>
+          <i class="fa-solid fa-trash trash"></i>
+        </div>
+        <div class="task">
+          <i class="fa-solid fa-check circle"></i>
+          <p class="taskHeading">Second Task</p>
+          <div class="date">12/01/2024</div>
+          <i class="fa-solid fa-trash trash"></i>
+        </div>
+      </div>
+    </div>
+    <div class="modal hide">
+      <div class="modalHeader">
+        <h1 class="modalTaskName">Task Name</h1>
+        <p class="modalDate">12/04/2022</p>
+      </div>
+      <div class="line"></div>
+      <div class="modalContent">
+        <div class="disc">
+          <label for="Description">Description :</label>
+          <p class="modalDescription">Description</p>
+        </div>
+        <div class="prior">
+          <label for="Priority">Priority :</label>
+          <p class="modalPriority">Priority</p>
+        </div>
+      </div>
+      <div class="icons">
+        <i class="fa-solid fa-pen edit"></i>
+        <i class="fa-regular fa-floppy-disk save hide"></i>
+        <i class="fa-solid fa-trash delete"></i>
+      </div>
+    </div>
+    <div class="blur hide"></div>
+  </body>
+</html>

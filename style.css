@@ -1,0 +1,222 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    /* font-weight: <weight>;
+    font-style: normal; */
+}
+body{
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.container{
+    width: 40%;
+    border-radius: 20px;
+    margin: 50px auto ;
+    padding: 30px;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    padding: 5px;
+    /* background-color: #2C5364; */
+}
+
+.container h1{
+    margin: 10px;
+    padding: 5px;
+    color: rgb(127, 15, 147);
+}
+
+.tasks{
+    /* background-color: aquamarine; */
+    width: 75%;
+    padding: 5px;
+    margin: 5px;
+}
+
+.task{
+    display: flex;
+    /* justify-content: space-between; */
+    margin: 7px;
+    padding: 10px;
+    align-items: center;
+    background-color: aquamarine;
+    position: relative;
+}
+
+.taskName{
+    width: 200px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.description{
+    width: 200px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.prioritySelect{
+    width: 200px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.dateSelector{
+    width: 200px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.btn{
+    width: 100px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    /* border: 2px solid green;
+    background-color: white; */
+}
+
+.circle{
+    padding: 2px;
+    margin: 4px;
+}
+
+.trash{
+    margin-left: 50%;
+    /* margin-right: 10%; */
+    position: absolute;
+    right: 10px;
+}
+
+.date{
+    position: absolute;
+    right: 40px;
+}
+
+.modal{
+    /* height: 400px; */
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    /* background-color: yellowgreen; */
+    background-color: aquamarine;
+    margin: 30px auto;
+    text-align: center;
+
+    /* position: ; */
+    /* display: none; */
+    position: absolute;
+    top: 50%; /* Position the modal at the vertical center of the viewport */
+    left: 50%; /* Position the modal at the horizontal center of the viewport */
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.modalHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 20px;
+    padding: 10px 10px;
+}
+
+
+.modalHeader h1{
+    color: #2C5364;
+}
+
+.modalHeader .modalDate{
+ font-size: large;
+ color: #2C5364;
+}
+
+.line {
+    border-bottom: 1px solid black; /* Change color and style as needed */
+    margin: 10px 0; /* Adjust margin as needed */
+}
+
+.modalContent{
+    display: flex;
+    flex-direction: column;
+}
+
+.modalContent .disc,.modalContent .prior{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-size: medium;
+    margin: 10px;
+    padding: 10px;
+}
+
+.disc label,.prior label{
+ font-size: large;
+ color: #2C5364;
+
+}
+
+.disc p,.prior p{
+    margin-left: 20px;
+    color: #203A43;
+}
+
+.modal .icons{
+    display: flex;
+    margin: 10px;
+    padding: 5px;
+    /* background-color: #2C5364; */
+    justify-content: space-between;
+}
+
+.hide{
+    display: none !important;
+}
+
+.blur{
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: #2C5364;
+    position: absolute;
+    top: 50%;
+     left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: .8;
+    /* display: none; */
+    /* display: none; */
+}
+
+
+/* .icons .save{
+    display: none;
+} */
+
+
+.show{
+    display: block;
+}
+
+.lineThrough{
+    text-decoration: line-through;
+}

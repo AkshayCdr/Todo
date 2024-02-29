@@ -9,6 +9,7 @@ import {
   editModal,
   getDataModal,
   updateModal,
+  changeModalMode,
 } from "./modal.js";
 import { repopulateTaskFromStorage } from "./repopulateTask.js";
 
@@ -64,9 +65,10 @@ export function handleTaskClick(e) {
   modal.classList.remove("hide");
 }
 
-export function handleBlurClick(modal, blur) {
+export function handleBlurClick(modal, blur, edit) {
   modal.classList.add("hide");
   blur.classList.add("hide");
+  if (edit.classList.contains("hide")) changeModalMode(modal);
   repopulateTaskFromStorage();
 }
 

@@ -146,3 +146,39 @@ export function getDataModal(name) {
 
   saveTasksToLocalStorage(updatedData);
 }
+
+export function changeModalMode(modal) {
+  // console.log("changed the mode ");
+  //modal elements to append
+  const modalHeader = modal.querySelector(".modalHeader");
+  const modalDescr = modal.querySelector(".disc");
+  const modalPrior = modal.querySelector(".prior");
+  //get data
+  const taskname = modal.querySelector(".taskName");
+  const dateinput = modal.querySelector(".dateinput");
+  const descp = modal.querySelector(".descp");
+  const priorityselect = modal.querySelector(".priorityselect");
+  //create Element
+  const modalTaskName = document.createElement("h1");
+  const modalDate = document.createElement("p");
+  const modalDescription = document.createElement("p");
+  const modalPriority = document.createElement("p");
+  //adding class
+  modalTaskName.classList.add("modalTaskName");
+  modalDate.classList.add("modalDate");
+  modalDescription.classList.add("modalDescription");
+  modalPriority.classList.add("modalPriority");
+
+  //adding value
+
+  //remove elements
+  taskname.remove();
+  dateinput.remove();
+  descp.remove();
+  priorityselect.remove();
+  //add elements
+  modalHeader.append(modalTaskName);
+  modalHeader.append(modalDate);
+  modalDescr.append(modalDescription);
+  modalPrior.append(modalPriority);
+}

@@ -27,6 +27,6 @@ const blur = document.querySelector(".blur");
 const del = document.querySelector(".delete");
 const edit = document.querySelector(".edit");
 
-blur.addEventListener("click", () => handleBlurClick(modal, blur));
+blur.addEventListener("click", () => handleBlurClick(modal, blur, edit));
 del.addEventListener("click", () => handleModalDeleteClick(modal, blur));
 edit.addEventListener("click", () => handleModalEditClick(modal));

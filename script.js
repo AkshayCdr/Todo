@@ -4,15 +4,18 @@ import {
   handleBlurClick,
   handleModalDeleteClick,
   handleModalEditClick,
+  handleClearButtonClick,
 } from "./EventListeners.js";
 
 const addButton = document.querySelector(".add");
+const clearButton = document.querySelector(".clear");
 
 //To repopulate tasks from storage
 repopulateTaskFromStorage();
 
 //To add new events
 addButton.addEventListener("click", handleAddButtonClick);
+clearButton.addEventListener("click", handleClearButtonClick);
 
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") handleAddButtonClick();

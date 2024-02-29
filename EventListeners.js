@@ -4,8 +4,18 @@ import {
   saveTasksToLocalStorage,
 } from "./savingData.js";
 
-import { addDataInModal, editModal } from "./modal.js";
+import {
+  addDataInModal,
+  editModal,
+  getDataModal,
+  updateModal,
+} from "./modal.js";
 import { repopulateTaskFromStorage } from "./repopulateTask.js";
+
+export function handleClearButtonClick() {
+  saveTasksToLocalStorage([]);
+  repopulateTaskFromStorage();
+}
 
 export function handleCircleClick(e) {
   // console.log(e);
@@ -43,6 +53,7 @@ export function handleTrashClick(e) {
 export function handleTaskClick(e) {
   //change the data in the modal
   // console.log(e.target);
+  debugger;
   addDataInModal(e);
 
   const modal = document.querySelector(".modal");
@@ -56,6 +67,7 @@ export function handleTaskClick(e) {
 export function handleBlurClick(modal, blur) {
   modal.classList.add("hide");
   blur.classList.add("hide");
+  repopulateTaskFromStorage();
 }
 
 export function handleModalDeleteClick(modal, blur) {
@@ -78,22 +90,31 @@ function toShowSaveButton(save, edit) {
   edit.classList.add("hide");
   save.classList.remove("hide");
 }
-function toShowEditButton() {
+function toShowEditButton(save, edit) {
   edit.classList.remove("hide");
   save.classList.add("hide");
 }
-
+let name;
 export function handleModalEditClick(modal) {
+  debugger;
   //show save button
   const save = modal.querySelector(".save");
   const edit = modal.querySelector(".edit");
 
   toShowSaveButton(save, edit);
-  editModal(modal);
-  save.addEventListener("click", () => handleModalSaveClick(save, edit));
+  // const name = editModal(modal);
+  name = editModal(modal);
+  // console.log(name);
+
+  save.addEventListener("click", () => handleModalSaveClick(save, edit, modal));
 }
 
-function handleModalSaveClick(save, edit) {
+function handleModalSaveClick(save, edit, modal) {
+  debugger;
   //show edit button
   toShowEditButton(save, edit);
+  //save data to local storage
+  getDataModal(name);
+  //get data from local storage and change the modal
+  updateModal(modal);
 }

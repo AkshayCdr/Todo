@@ -54,7 +54,7 @@ export function handleTrashClick(e) {
 export function handleTaskClick(e) {
   //change the data in the modal
   // console.log(e.target);
-  debugger;
+
   addDataInModal(e);
 
   const modal = document.querySelector(".modal");
@@ -98,7 +98,6 @@ function toShowEditButton(save, edit) {
 }
 let name;
 export function handleModalEditClick(modal) {
-  debugger;
   //show save button
   const save = modal.querySelector(".save");
   const edit = modal.querySelector(".edit");
@@ -112,7 +111,6 @@ export function handleModalEditClick(modal) {
 }
 
 function handleModalSaveClick(save, edit, modal) {
-  debugger;
   //show edit button
   toShowEditButton(save, edit);
   //save data to local storage

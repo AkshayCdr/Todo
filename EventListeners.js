@@ -118,3 +118,14 @@ function handleModalSaveClick(save, edit, modal) {
   //get data from local storage and change the modal
   updateModal(modal);
 }
+
+export function handleSortButtonClick() {
+  const data = getTasksLocalStorage();
+  // console.log(data);
+  data.sort((a, b) => {
+    return parseInt(a.priority) - parseInt(b.priority);
+  });
+  // console.log(data);
+  saveTasksToLocalStorage(data);
+  repopulateTaskFromStorage();
+}

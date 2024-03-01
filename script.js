@@ -5,10 +5,12 @@ import {
   handleModalDeleteClick,
   handleModalEditClick,
   handleClearButtonClick,
+  handleSortButtonClick,
 } from "./EventListeners.js";
 
 const addButton = document.querySelector(".add");
 const clearButton = document.querySelector(".clear");
+const sortButton = document.querySelector(".sort");
 
 //To repopulate tasks from storage
 repopulateTaskFromStorage();
@@ -16,6 +18,7 @@ repopulateTaskFromStorage();
 //To add new events
 addButton.addEventListener("click", handleAddButtonClick);
 clearButton.addEventListener("click", handleClearButtonClick);
+sortButton.addEventListener("click", handleSortButtonClick);
 
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") handleAddButtonClick();

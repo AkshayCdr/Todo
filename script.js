@@ -41,7 +41,5 @@ function minDate() {
   const dateElement = document.querySelector(".dateSelector");
   const date = new Date();
   const formattedDate = date.toISOString().split("T")[0];
-  // const formattedDate = date.toUTCString();
-  console.log(formattedDate);
   dateElement.min = formattedDate;
 }

@@ -9,11 +9,11 @@ export function saveToLocalStorage() {
   const description = descriptionInput.value;
   const priority = prioritySelect.value;
   const date = dateSelector.value;
-  const isOverlined =
-    document.querySelector(".taskHeading").style.textDecoration ===
-    "line-through";
+  // const isOverlined =
+  //   document.querySelector(".taskHeading").style.textDecoration ===
+  //   "line-through";
 
-  console.log(document.querySelector(".taskHeading").style.textDecoration);
+  // console.log(document.querySelector(".taskHeading").style.textDecoration);
 
   const tasks = getTasksLocalStorage();
 
@@ -22,7 +22,7 @@ export function saveToLocalStorage() {
     description: description,
     priority: priority,
     date: date,
-    overlined: isOverlined,
+    // overlined: isOverlined,
   });
 
   saveTasksToLocalStorage(tasks);
@@ -45,7 +45,6 @@ export function updateLocalStorage(e, completeTask) {
   const data = JSON.parse(localStorage.getItem("tasks"));
 
   const taskName = e.target.nextElementSibling.textContent;
-  // console.log(data);
   const updatedData = data.map((ele) => {
     if (ele.taskName === taskName)
       completeTask ? (ele.overlined = true) : (ele.overlined = false);
@@ -53,5 +52,4 @@ export function updateLocalStorage(e, completeTask) {
   });
 
   localStorage.setItem("tasks", JSON.stringify(updatedData));
-  // console.log(updatedDate);
 }

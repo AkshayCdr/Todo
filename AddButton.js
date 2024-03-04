@@ -9,6 +9,14 @@ const taskNameInput = document.querySelector(".taskName");
 const dateSelector = document.querySelector(".dateSelector");
 const prioritySelector = document.querySelector(".prioritySelect");
 
+export const colour = {
+  0: "",
+  1: "red",
+  2: "orange",
+  3: "yellow",
+  4: "green",
+};
+
 export function handleAddButtonClick() {
   const taskName = taskNameInput.value;
   const date = dateSelector.value;
@@ -29,6 +37,9 @@ export function handleAddButtonClick() {
 
   //adding class to element
   taskElement.classList.add("task");
+
+  taskElement.classList.add(colour[parseInt(priority)]);
+
   priorityElement.classList.add("priority");
   taskCompleteElement.classList.add("fa-regular", "fa-circle", "circle");
   taskHeading.classList.add("taskHeading");

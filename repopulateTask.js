@@ -4,6 +4,7 @@ import {
   handleTaskClick,
 } from "./EventListeners.js";
 import { getTasksLocalStorage } from "./savingData.js";
+import { colour } from "./AddButton.js";
 
 export function repopulateTaskFromStorage() {
   const tasks = getTasksLocalStorage();
@@ -23,6 +24,9 @@ export function repopulateTaskFromStorage() {
 
     // adding classes
     taskElement.classList.add("task");
+
+    taskElement.classList.add(colour[parseInt(taskData.priority)]);
+
     priorityElement.classList.add("priority");
     taskData.overlined
       ? (circleElement.classList.add("fa-solid", "fa-check", "circle"),

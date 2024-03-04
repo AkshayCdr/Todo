@@ -53,7 +53,6 @@ export function handleTrashClick(e) {
 
 export function handleTaskClick(e) {
   //change the data in the modal
-  // console.log(e.target);
 
   addDataInModal(e);
 
@@ -121,11 +120,32 @@ function handleModalSaveClick(save, edit, modal) {
 
 export function handleSortButtonClick() {
   const data = getTasksLocalStorage();
-  // console.log(data);
-  data.sort((a, b) => {
-    return parseInt(a.priority) - parseInt(b.priority);
-  });
-  // console.log(data);
+
+  data.sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
+
   saveTasksToLocalStorage(data);
   repopulateTaskFromStorage();
 }
+
+// let sort = false
+// export function handleSortButtonClick() {
+//   let data;
+//   let dataWithoutSort;
+//   const sortButton = document.querySelector(".sort");
+//   if (!sort) {
+//     data = getTasksLocalStorage();
+//     dataWithoutSort = data;
+//     data.sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
+//     sort = true;
+//     localStorage.setItem("taskWithoutSort", JSON.stringify(dataWithoutSort));
+//     saveTasksToLocalStorage(data);
+//     repopulateTaskFromStorage();
+//     sortButton.textContent = "Remove Sort";
+//   } else {
+//     dataWithoutSort = JSON.parse(localStorage.getItem("taskWithoutSort"));
+//     sort = false;
+//     saveTasksToLocalStorage(dataWithoutSort);
+//     repopulateTaskFromStorage();
+//     sortButton.textContent = "Sort";
+//   }
+// }

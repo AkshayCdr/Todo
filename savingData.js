@@ -13,6 +13,8 @@ export function saveToLocalStorage() {
     document.querySelector(".taskHeading").style.textDecoration ===
     "line-through";
 
+  console.log(document.querySelector(".taskHeading").style.textDecoration);
+
   const tasks = getTasksLocalStorage();
 
   tasks.push({

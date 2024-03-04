@@ -7,12 +7,12 @@ import { saveToLocalStorage } from "./savingData.js";
 
 const taskNameInput = document.querySelector(".taskName");
 const dateSelector = document.querySelector(".dateSelector");
+const prioritySelector = document.querySelector(".prioritySelect");
 
 export function handleAddButtonClick() {
   const taskName = taskNameInput.value;
-  //   const description = descriptionInput.value;
-  //   const priority = prioritySelect.value;
   const date = dateSelector.value;
+  const priority = prioritySelector.value;
 
   if (!taskName) return null;
 
@@ -21,14 +21,16 @@ export function handleAddButtonClick() {
 
   //create tasks dom
   const taskElement = document.createElement("div");
-  const circleElement = document.createElement("i");
+  const priorityElement = document.createElement("p");
+  const taskCompleteElement = document.createElement("i");
   const taskHeading = document.createElement("p");
   const dateElement = document.createElement("div");
   const trashElement = document.createElement("i");
 
   //adding class to element
   taskElement.classList.add("task");
-  circleElement.classList.add("fa-regular", "fa-circle", "circle");
+  priorityElement.classList.add("priority");
+  taskCompleteElement.classList.add("fa-regular", "fa-circle", "circle");
   taskHeading.classList.add("taskHeading");
   dateElement.classList.add("date");
   trashElement.classList.add("fa-solid", "fa-trash", "trash");
@@ -36,9 +38,11 @@ export function handleAddButtonClick() {
   //adding value to element
   taskHeading.textContent = taskName;
   dateElement.textContent = date;
+  priorityElement.textContent = priority;
 
   //adding element to task
-  taskElement.append(circleElement);
+  taskElement.append(priorityElement);
+  taskElement.append(taskCompleteElement);
   taskElement.append(taskHeading);
   taskElement.append(dateElement);
   taskElement.append(trashElement);
@@ -49,25 +53,27 @@ export function handleAddButtonClick() {
   //adding to local storage
   saveToLocalStorage();
 
-  circleElement.addEventListener("click", handleCircleClick);
+  taskCompleteElement.addEventListener("click", handleCircleClick);
   trashElement.addEventListener("click", handleTrashClick);
 
   document.querySelectorAll(".task").forEach((task) => {
     task.addEventListener("click", handleTaskClick);
   });
 
-  //to stop event propagation
+  const elementClasses = [
+    ".circle",
+    ".date",
+    ".taskHeading",
+    ".trash",
+    ".priority",
+  ];
+
   document.querySelectorAll(".task").forEach((task) => {
-    task.querySelector(".circle").addEventListener("click", (e) => {
-      e.stopPropagation();
-    });
-
-    task.querySelector(".date").addEventListener("click", (e) => {
-      e.stopPropagation();
-    });
-
-    task.querySelector(".taskHeading").addEventListener("click", (event) => {
-      event.stopPropagation();
+    elementClasses.forEach((ele) => {
+      // console.log(ele);
+      task.querySelector(ele).addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
     });
   });
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <!-- <meta charset="UTF-8" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <!-- script  -->
@@ -31,18 +31,15 @@
         <input
           type="text"
           name="taskName"
-          id=""
           class="taskName"
           placeholder="Task name"
         />
         <input
           type="text"
           name="description"
-          id="description"
           class="description"
           placeholder="description"
         />
-
         <select name="priority" id="prioritySelect" class="prioritySelect">
           <option value="">--Choose Priority--</option>
           <option value="1">Priority 1</option>
@@ -57,39 +54,10 @@
         </button>
         <button class="btn clear">Clear</button>
       </div>
-      <!-- <div class="tasks">
-        <div class="task">
-          <i class="fa-regular fa-circle circle"></i>
-          <p>First Task</p>
-          <div class="date">12/01/2024</div>
-          <i class="fa-solid fa-trash trash"></i>
-        </div>
-      </div>
-      <div class="tasks">
-        <div class="task">
-          <i class="fa-solid fa-check circle"></i>
-          <p>Second Task</p>
-          <div class="date">12/01/2024</div>
-          <i class="fa-solid fa-trash trash"></i>
-        </div>
-      </div> -->
-
-      <div class="tasks">
-        <div class="task">
-          <i class="fa-regular fa-circle circle"></i>
-          <p class="taskHeading">First Task</p>
-          <div class="date">12/01/2024</div>
-          <i class="fa-solid fa-trash trash"></i>
-        </div>
-        <div class="task">
-          <i class="fa-solid fa-check circle"></i>
-          <p class="taskHeading">Second Task</p>
-          <div class="date">12/01/2024</div>
-          <i class="fa-solid fa-trash trash"></i>
-        </div>
-      </div>
+      <div class="tasks"></div>
       <button class="sort btn">Sort</button>
     </div>
+
     <div class="modal hide">
       <div class="modalHeader">
         <h1 class="modalTaskName">Task Name</h1>

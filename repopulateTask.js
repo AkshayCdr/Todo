@@ -9,13 +9,13 @@ export function repopulateTaskFromStorage() {
   const tasks = getTasksLocalStorage();
   const tasksContainer = document.querySelector(".tasks");
 
-  // clearing  tasks
   tasksContainer.innerHTML = "";
 
   // Iterate over tasks and create elements
   tasks.forEach((taskData) => {
     const taskElement = document.createElement("div");
     const circleElement = document.createElement("i");
+    const priorityElement = document.createElement("p");
     // const checkElement = document.createElement("i");
     const taskHeading = document.createElement("p");
     const dateElement = document.createElement("div");
@@ -23,6 +23,7 @@ export function repopulateTaskFromStorage() {
 
     // adding classes
     taskElement.classList.add("task");
+    priorityElement.classList.add("priority");
     taskData.overlined
       ? (circleElement.classList.add("fa-solid", "fa-check", "circle"),
         (taskHeading.style.textDecoration = "line-through"))
@@ -35,9 +36,11 @@ export function repopulateTaskFromStorage() {
     // setting content
     taskHeading.textContent = taskData.taskName;
     dateElement.textContent = taskData.date;
+    priorityElement.textContent = taskData.priority;
 
     // adding elements
 
+    taskElement.append(priorityElement);
     taskElement.append(circleElement);
     taskElement.append(taskHeading);
     taskElement.append(dateElement);
@@ -48,22 +51,25 @@ export function repopulateTaskFromStorage() {
 
     circleElement.addEventListener("click", handleCircleClick);
     trashElement.addEventListener("click", handleTrashClick);
+
     document.querySelectorAll(".task").forEach((task) => {
       task.addEventListener("click", handleTaskClick);
     });
 
-    //to stop event propagation
+    const elementClasses = [
+      ".circle",
+      ".date",
+      ".taskHeading",
+      ".trash",
+      ".priority",
+    ];
+
     document.querySelectorAll(".task").forEach((task) => {
-      task.querySelector(".circle").addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
-
-      task.querySelector(".date").addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
-
-      task.querySelector(".taskHeading").addEventListener("click", (event) => {
-        event.stopPropagation();
+      elementClasses.forEach((ele) => {
+        // console.log(ele);
+        task.querySelector(ele).addEventListener("click", (event) => {
+          event.stopPropagation();
+        });
       });
     });
   });

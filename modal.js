@@ -1,3 +1,4 @@
+import { toShowEditButton } from "./EventListeners.js";
 import { getTasksLocalStorage, saveTasksToLocalStorage } from "./savingData.js";
 
 export function addDataInModal(e) {
@@ -50,12 +51,28 @@ export function editModal(modal) {
   const taskNameInput = document.createElement("input");
   const dateInput = document.createElement("input");
   const descriptionInput = document.createElement("input");
-  const priorityInput = document.createElement("input");
+  const priorityInput = document.createElement("select");
 
   taskNameInput.setAttribute("type", "text");
   dateInput.setAttribute("type", "date");
   descriptionInput.setAttribute("type", "text");
-  priorityInput.setAttribute("type", "text");
+  // priorityInput.setAttribute("type", "text");
+  const options = {
+    "": "Choose Priority",
+    1: "Priority 1",
+    2: "Priority 2",
+    3: "Priority 3",
+    4: "Priority 4",
+  };
+
+  for (let i in options) {
+    // console.log(options[i]);
+    // console.log(i);
+    const optionElement = document.createElement("option");
+    optionElement.value = i;
+    optionElement.textContent = options[i];
+    priorityInput.append(optionElement);
+  }
 
   taskNameInput.classList.add("taskName", "taskname");
   dateInput.classList.add("dateSelector", "dateinput");
@@ -147,8 +164,16 @@ export function getDataModal(name) {
   saveTasksToLocalStorage(updatedData);
 }
 
+function ShowEditButton() {
+  const edit = document.querySelector(".edit");
+  const save = document.querySelector(".save");
+  edit.classList.remove("hide");
+  save.classList.add("hide");
+}
+
 export function changeModalMode(modal) {
   // console.log("changed the mode ");
+  ShowEditButton();
   //modal elements to append
   const modalHeader = modal.querySelector(".modalHeader");
   const modalDescr = modal.querySelector(".disc");

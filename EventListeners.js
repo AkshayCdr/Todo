@@ -91,7 +91,7 @@ function toShowSaveButton(save, edit) {
   edit.classList.add("hide");
   save.classList.remove("hide");
 }
-function toShowEditButton(save, edit) {
+export function toShowEditButton(save, edit) {
   edit.classList.remove("hide");
   save.classList.add("hide");
 }
@@ -121,31 +121,23 @@ function handleModalSaveClick(save, edit, modal) {
 export function handleSortButtonClick() {
   const data = getTasksLocalStorage();
 
-  data.sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
+  // data.sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
+  data.sort((a, b) => {
+    // if (a.priority === "" && b.priority === "") {
+    //   return 0;
+    // } else if (a.priority === "") {
+    //   return 1;
+    // } else if (b.priority === "") {
+    //   return -1;
+    // }
+
+    if (a.priority === "" && b.priority === "") return 0;
+    if (a.priority === "") return 1;
+    if (b.priority === "") return -1;
+
+    return parseInt(a.priority) - parseInt(b.priority);
+  });
 
   saveTasksToLocalStorage(data);
   repopulateTaskFromStorage();
 }
-
-// let sort = false
-// export function handleSortButtonClick() {
-//   let data;
-//   let dataWithoutSort;
-//   const sortButton = document.querySelector(".sort");
-//   if (!sort) {
-//     data = getTasksLocalStorage();
-//     dataWithoutSort = data;
-//     data.sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
-//     sort = true;
-//     localStorage.setItem("taskWithoutSort", JSON.stringify(dataWithoutSort));
-//     saveTasksToLocalStorage(data);
-//     repopulateTaskFromStorage();
-//     sortButton.textContent = "Remove Sort";
-//   } else {
-//     dataWithoutSort = JSON.parse(localStorage.getItem("taskWithoutSort"));
-//     sort = false;
-//     saveTasksToLocalStorage(dataWithoutSort);
-//     repopulateTaskFromStorage();
-//     sortButton.textContent = "Sort";
-//   }
-// }

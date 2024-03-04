@@ -12,6 +12,9 @@ const addButton = document.querySelector(".add");
 const clearButton = document.querySelector(".clear");
 const sortButton = document.querySelector(".sort");
 
+//setting minimum date
+minDate();
+
 //To repopulate tasks from storage
 repopulateTaskFromStorage();
 
@@ -33,3 +36,12 @@ const edit = document.querySelector(".edit");
 blur.addEventListener("click", () => handleBlurClick(modal, blur, edit));
 del.addEventListener("click", () => handleModalDeleteClick(modal, blur));
 edit.addEventListener("click", () => handleModalEditClick(modal));
+
+function minDate() {
+  const dateElement = document.querySelector(".dateSelector");
+  const date = new Date();
+  const formattedDate = date.toISOString().split("T")[0];
+  // const formattedDate = date.toUTCString();
+  console.log(formattedDate);
+  dateElement.min = formattedDate;
+}

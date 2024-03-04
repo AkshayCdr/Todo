@@ -123,14 +123,6 @@ export function handleSortButtonClick() {
 
   // data.sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
   data.sort((a, b) => {
-    // if (a.priority === "" && b.priority === "") {
-    //   return 0;
-    // } else if (a.priority === "") {
-    //   return 1;
-    // } else if (b.priority === "") {
-    //   return -1;
-    // }
-
     if (a.priority === "" && b.priority === "") return 0;
     if (a.priority === "") return 1;
     if (b.priority === "") return -1;

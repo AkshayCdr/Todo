@@ -41,16 +41,14 @@ export function saveTasksToLocalStorage(tasks) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-export function updateLocalStorage(e) {
+export function updateLocalStorage(e, completeTask) {
   const data = JSON.parse(localStorage.getItem("tasks"));
-  const taskElemenet = e.target.nextElementSibling;
+
   const taskName = e.target.nextElementSibling.textContent;
   // console.log(data);
   const updatedData = data.map((ele) => {
     if (ele.taskName === taskName) {
-      taskElemenet.style.textDecoration === "line-through"
-        ? (ele.overlined = true)
-        : (ele.overlined = false);
+      completeTask ? (ele.overlined = true) : (ele.overlined = false);
     }
     return ele;
   });

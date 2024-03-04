@@ -18,14 +18,18 @@ export function handleClearButtonClick() {
   repopulateTaskFromStorage();
 }
 
+let completeTask = false;
+
 export function handleCircleClick(e) {
   // console.log(e);
   if (e.target.classList.contains("fa-regular", "fa-circle")) {
     e.target.classList.remove("fa-regular", "fa-circle");
     e.target.classList.add("fa-solid", "fa-check");
+    completeTask = true;
   } else if (e.target.classList.contains("fa-solid", "fa-check")) {
     e.target.classList.remove("fa-solid", "fa-check");
     e.target.classList.add("fa-regular", "fa-circle");
+    completeTask = false;
   }
 
   const taskName = e.target.nextElementSibling;
@@ -34,7 +38,7 @@ export function handleCircleClick(e) {
     : (taskName.style.textDecoration = "line-through");
 
   // saveToLocalStorage();
-  updateLocalStorage(e);
+  updateLocalStorage(e, completeTask);
 }
 
 export function handleTrashClick(e) {

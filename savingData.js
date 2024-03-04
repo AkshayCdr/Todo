@@ -47,9 +47,8 @@ export function updateLocalStorage(e, completeTask) {
   const taskName = e.target.nextElementSibling.textContent;
   // console.log(data);
   const updatedData = data.map((ele) => {
-    if (ele.taskName === taskName) {
+    if (ele.taskName === taskName)
       completeTask ? (ele.overlined = true) : (ele.overlined = false);
-    }
     return ele;
   });
 

@@ -17,7 +17,7 @@ const blur = document.querySelector(".blur");
 const del = document.querySelector(".delete");
 const edit = document.querySelector(".edit");
 
-settingMinimumDate();
+setMinimumDate();
 
 repopulateTaskFromStorage();
 
@@ -33,7 +33,7 @@ blur.addEventListener("click", () => handleBlurClick(modal, blur, edit));
 del.addEventListener("click", () => handleModalDeleteClick(modal, blur));
 edit.addEventListener("click", () => handleModalEditClick(modal));
 
-function settingMinimumDate() {
+function setMinimumDate() {
   const dateElement = document.querySelector(".dateSelector");
   const date = new Date();
   const formattedDate = date.toISOString().split("T")[0];

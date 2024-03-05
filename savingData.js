@@ -9,12 +9,6 @@ export function saveToLocalStorage() {
   const description = descriptionInput.value;
   const priority = prioritySelect.value;
   const date = dateSelector.value;
-  // const isOverlined =
-  //   document.querySelector(".taskHeading").style.textDecoration ===
-  //   "line-through";
-
-  // console.log(document.querySelector(".taskHeading").style.textDecoration);
-
   const tasks = getTasksLocalStorage();
 
   tasks.push({
@@ -22,7 +16,6 @@ export function saveToLocalStorage() {
     description: description,
     priority: priority,
     date: date,
-    // overlined: isOverlined,
   });
 
   saveTasksToLocalStorage(tasks);

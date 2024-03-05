@@ -1,5 +1,5 @@
 import {
-  handleCircleClick,
+  handleTaskCompletedClick,
   handleTrashClick,
   handleTaskClick,
 } from "./EventListeners.js";
@@ -7,15 +7,15 @@ import { getTasksLocalStorage } from "./savingData.js";
 import { colour } from "./AddButton.js";
 
 export function repopulateTaskFromStorage() {
-  const tasks = getTasksLocalStorage();
-  const tasksContainer = document.querySelector(".tasks");
+  const tasksDataLocalStorage = getTasksLocalStorage();
+  const tasksContainerElement = document.querySelector(".tasks");
 
-  tasksContainer.innerHTML = "";
+  tasksContainerElement.innerHTML = "";
 
   // Iterate over tasks and create elements
-  tasks.forEach((taskData) => {
+  tasksDataLocalStorage.forEach((taskData) => {
     const taskElement = document.createElement("div");
-    const circleElement = document.createElement("i");
+    const taskCompleteElement = document.createElement("i");
     const priorityElement = document.createElement("p");
     // const checkElement = document.createElement("i");
     const taskHeading = document.createElement("p");
@@ -24,15 +24,14 @@ export function repopulateTaskFromStorage() {
 
     // adding classes
     taskElement.classList.add("task");
-
     taskElement.classList.add(colour[parseInt(taskData.priority)]);
-
     priorityElement.classList.add("priority");
-    taskData.overlined
-      ? (circleElement.classList.add("fa-solid", "fa-check", "circle"),
-        (taskHeading.style.textDecoration = "line-through"))
-      : circleElement.classList.add("fa-regular", "fa-circle", "circle");
-
+    if (taskData.overlined) {
+      taskCompleteElement.classList.add("fa-solid", "fa-check", "circle");
+      taskHeading.style.textDecoration = "line-through";
+    } else {
+      taskCompleteElement.classList.add("fa-regular", "fa-circle", "circle");
+    }
     taskHeading.classList.add("taskHeading");
     dateElement.classList.add("date");
     trashElement.classList.add("fa-solid", "fa-trash", "trash");
@@ -45,15 +44,15 @@ export function repopulateTaskFromStorage() {
     // adding elements
 
     taskElement.append(priorityElement);
-    taskElement.append(circleElement);
+    taskElement.append(taskCompleteElement);
     taskElement.append(taskHeading);
     taskElement.append(dateElement);
     taskElement.append(trashElement);
 
     // add task to container
-    tasksContainer.append(taskElement);
+    tasksContainerElement.append(taskElement);
 
-    circleElement.addEventListener("click", handleCircleClick);
+    taskCompleteElement.addEventListener("click", handleTaskCompletedClick);
     trashElement.addEventListener("click", handleTrashClick);
 
     document.querySelectorAll(".task").forEach((task) => {

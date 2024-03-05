@@ -20,8 +20,7 @@ export function handleClearButtonClick() {
 
 let completeTask = false;
 
-export function handleCircleClick(e) {
-  // console.log(e);
+export function handleTaskCompletedClick(e) {
   if (e.target.classList.contains("fa-regular", "fa-circle")) {
     e.target.classList.remove("fa-regular", "fa-circle");
     e.target.classList.add("fa-solid", "fa-check");
@@ -106,9 +105,7 @@ export function handleModalEditClick(modal) {
   const edit = modal.querySelector(".edit");
 
   toShowSaveButton(save, edit);
-  // const name = editModal(modal);
   name = editModal(modal);
-  // console.log(name);
 
   save.addEventListener("click", () => handleModalSaveClick(save, edit, modal));
 }

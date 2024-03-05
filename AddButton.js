@@ -1,5 +1,5 @@
 import {
-  handleCircleClick,
+  handleTaskCompletedClick,
   handleTrashClick,
   handleTaskClick,
 } from "./EventListeners.js";
@@ -61,10 +61,9 @@ export function handleAddButtonClick() {
   //adding to tasks
   tasks.append(taskElement);
 
-  //adding to local storage
   saveToLocalStorage();
 
-  taskCompleteElement.addEventListener("click", handleCircleClick);
+  taskCompleteElement.addEventListener("click", handleTaskCompletedClick);
   trashElement.addEventListener("click", handleTrashClick);
 
   document.querySelectorAll(".task").forEach((task) => {
@@ -81,7 +80,6 @@ export function handleAddButtonClick() {
 
   document.querySelectorAll(".task").forEach((task) => {
     elementClasses.forEach((ele) => {
-      // console.log(ele);
       task.querySelector(ele).addEventListener("click", (event) => {
         event.stopPropagation();
       });

@@ -7,6 +7,7 @@ import {
   handleClearButtonClick,
   handleSortButtonClick,
 } from "./EventListeners.js";
+import { getTasksLocalStorage } from "./savingData.js";
 
 const addButton = document.querySelector(".add");
 const clearButton = document.querySelector(".clear");
@@ -17,21 +18,25 @@ const blur = document.querySelector(".blur");
 const del = document.querySelector(".delete");
 const edit = document.querySelector(".edit");
 
+const data = getTasksLocalStorage();
+
 setMinimumDate();
 
-repopulateTaskFromStorage();
+repopulateTaskFromStorage(data);
 
 addButton.addEventListener("click", handleAddButtonClick);
 clearButton.addEventListener("click", handleClearButtonClick);
-sortButton.addEventListener("click", handleSortButtonClick);
+sortButton.addEventListener("click", () => handleSortButtonClick(data));
 
 window.addEventListener("keydown", (e) => {
   if (e.key === "Enter") handleAddButtonClick();
 });
 
-blur.addEventListener("click", () => handleBlurClick(modal, blur, edit));
-del.addEventListener("click", () => handleModalDeleteClick(modal, blur));
-edit.addEventListener("click", () => handleModalEditClick(modal));
+blur.addEventListener("click", () => handleBlurClick(modal, blur, edit, data));
+del.addEventListener("click", () =>
+  handleModalDeleteClick(modal, blur, edit, data)
+);
+edit.addEventListener("click", () => handleModalEditClick(modal, data));
 
 function setMinimumDate() {
   const dateElement = document.querySelector(".dateSelector");

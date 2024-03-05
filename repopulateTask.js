@@ -3,17 +3,15 @@ import {
   handleTrashClick,
   handleTaskClick,
 } from "./EventListeners.js";
-import { getTasksLocalStorage } from "./savingData.js";
 import { colour } from "./AddButton.js";
 
-export function repopulateTaskFromStorage() {
-  const tasksDataLocalStorage = getTasksLocalStorage();
+export function repopulateTaskFromStorage(data) {
   const tasksContainerElement = document.querySelector(".tasks");
 
   tasksContainerElement.innerHTML = "";
 
   // Iterate over tasks and create elements
-  tasksDataLocalStorage.forEach((taskData) => {
+  data.forEach((taskData) => {
     const taskElement = document.createElement("div");
     const taskCompleteElement = document.createElement("i");
     const priorityElement = document.createElement("p");
@@ -24,7 +22,9 @@ export function repopulateTaskFromStorage() {
 
     // adding classes
     taskElement.classList.add("task");
-    taskElement.classList.add(colour[parseInt(taskData.priority)]);
+
+    taskElement.classList.add(colour[parseInt(taskData.priority) || 0]);
+
     priorityElement.classList.add("priority");
     if (taskData.overlined) {
       taskCompleteElement.classList.add("fa-solid", "fa-check", "circle");
@@ -53,10 +53,10 @@ export function repopulateTaskFromStorage() {
     tasksContainerElement.append(taskElement);
 
     taskCompleteElement.addEventListener("click", handleTaskCompletedClick);
-    trashElement.addEventListener("click", handleTrashClick);
+    trashElement.addEventListener("click", (e) => handleTrashClick(e, data));
 
     document.querySelectorAll(".task").forEach((task) => {
-      task.addEventListener("click", handleTaskClick);
+      task.addEventListener("click", (e) => handleTaskClick(e, data));
     });
 
     const elementClasses = [

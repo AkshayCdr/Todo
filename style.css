@@ -56,7 +56,7 @@ body{
     margin: 7px;
     padding: 10px;
     align-items: center;
-    background-color: aquamarine;
+    /* background-color: white; */
     position: relative;
 }
 
@@ -128,9 +128,9 @@ body{
     /* position: ; */
     /* display: none; */
     position: absolute;
-     top: 50%; /*Position the modal at the vertical center of the viewport */
-    left: 50%; /*Position the modal at the horizontal center of the viewport */
-    transform: translate(-50%, -50%);
+     top: 50%; 
+    left: 50%; 
+    transform: translate(-65%, -50%);
     z-index: 3;
 }
 
@@ -241,4 +241,12 @@ body{
 
 .yellow{
     background-color: yellow;
+}
+
+.white{
+    background-color: white;
+}
+
+.green{
+    background-color: green;
 }

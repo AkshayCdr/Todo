@@ -1,7 +1,7 @@
 import { toShowEditButton } from "./EventListeners.js";
-import { getTasksLocalStorage, saveTasksToLocalStorage } from "./savingData.js";
+import { saveTasksToLocalStorage } from "./savingData.js";
 
-export function addDataInModal(e) {
+export function addDataInModal(e, data) {
   const task = e.target;
 
   //return if the element is not task
@@ -10,7 +10,6 @@ export function addDataInModal(e) {
 
   const taskName = task.querySelector(".taskHeading").textContent;
   //   console.log(taskName);
-  const data = getTasksLocalStorage();
   let description, priority, date, overlined;
 
   data.forEach((task) => {
@@ -18,12 +17,6 @@ export function addDataInModal(e) {
       ({ description, priority, date, overlined } = task);
     }
   });
-
-  // const modal = document.querySelector(".modal");
-  // const modalTaskName = document.querySelector(".modalTaskName");
-  // const modalDate = document.querySelector(".modalDate");
-  // const modalDescription = document.querySelector(".modalDescription");
-  // const modalPriority = document.querySelector(".modalPriority");
 
   const modal = document.querySelector(".modal");
   const modalTaskName = modal.querySelector(".modalTaskName");
@@ -141,13 +134,11 @@ export function updateModal(modal) {
   modalPrior.append(modalPriority);
 }
 
-export function getDataModal(name) {
+export function getDataModal(name, data) {
   const taskName = document.querySelector(".taskname").value;
   const date = document.querySelector(".dateinput").value;
   const description = document.querySelector(".descp").value;
   const priority = document.querySelector(".priorityselect").value;
-
-  const data = getTasksLocalStorage();
 
   //update the data using name
 

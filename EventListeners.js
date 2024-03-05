@@ -1,8 +1,4 @@
-import {
-  updateLocalStorage,
-  getTasksLocalStorage,
-  saveTasksToLocalStorage,
-} from "./savingData.js";
+import { updateLocalStorage, saveTasksToLocalStorage } from "./savingData.js";
 
 import {
   addDataInModal,
@@ -40,10 +36,9 @@ export function handleTaskCompletedClick(e) {
   updateLocalStorage(e, completeTask);
 }
 
-export function handleTrashClick(e) {
+export function handleTrashClick(e, data) {
   const task = e.target.parentElement;
   const taskName = task.querySelector(".taskHeading");
-  const data = getTasksLocalStorage();
 
   const updatedData = data.filter(
     (task) => task.taskName !== taskName.textContent
@@ -54,10 +49,10 @@ export function handleTrashClick(e) {
   task.remove();
 }
 
-export function handleTaskClick(e) {
+export function handleTaskClick(e, data) {
   //change the data in the modal
 
-  addDataInModal(e);
+  addDataInModal(e, data);
 
   const modal = document.querySelector(".modal");
   const blur = document.querySelector(".blur");
@@ -67,17 +62,16 @@ export function handleTaskClick(e) {
   modal.classList.remove("hide");
 }
 
-export function handleBlurClick(modal, blur, edit) {
+export function handleBlurClick(modal, blur, edit, data) {
   modal.classList.add("hide");
   blur.classList.add("hide");
   if (edit.classList.contains("hide")) changeModalMode(modal);
-  repopulateTaskFromStorage();
+  repopulateTaskFromStorage(data);
 }
 
-export function handleModalDeleteClick(modal, blur) {
+export function handleModalDeleteClick(modal, blur, edit, data) {
   const taskName = modal.querySelector(".modalTaskName");
-  //get data
-  const data = getTasksLocalStorage();
+
   //update Data
   const updatedData = data.filter(
     (task) => task.taskName !== taskName.textContent
@@ -85,9 +79,9 @@ export function handleModalDeleteClick(modal, blur) {
   //save Data after delete
   saveTasksToLocalStorage(updatedData);
   //remove blur and modal
-  handleBlurClick(modal, blur);
+  handleBlurClick(modal, blur, edit, data);
   //reload the page
-  repopulateTaskFromStorage();
+  repopulateTaskFromStorage(updatedData);
 }
 
 function toShowSaveButton(save, edit) {
@@ -99,7 +93,7 @@ export function toShowEditButton(save, edit) {
   save.classList.add("hide");
 }
 let name;
-export function handleModalEditClick(modal) {
+export function handleModalEditClick(modal, data) {
   //show save button
   const save = modal.querySelector(".save");
   const edit = modal.querySelector(".edit");
@@ -107,22 +101,21 @@ export function handleModalEditClick(modal) {
   toShowSaveButton(save, edit);
   name = editModal(modal);
 
-  save.addEventListener("click", () => handleModalSaveClick(save, edit, modal));
+  save.addEventListener("click", () =>
+    handleModalSaveClick(save, edit, modal, data)
+  );
 }
 
-function handleModalSaveClick(save, edit, modal) {
+function handleModalSaveClick(save, edit, modal, data) {
   //show edit button
   toShowEditButton(save, edit);
   //save data to local storage
-  getDataModal(name);
+  getDataModal(name, data);
   //get data from local storage and change the modal
   updateModal(modal);
 }
 
-export function handleSortButtonClick() {
-  const data = getTasksLocalStorage();
-
-  // data.sort((a, b) => parseInt(a.priority) - parseInt(b.priority));
+export function handleSortButtonClick(data) {
   data.sort((a, b) => {
     if (a.priority === "" && b.priority === "") return 0;
     if (a.priority === "") return 1;
@@ -132,5 +125,5 @@ export function handleSortButtonClick() {
   });
 
   saveTasksToLocalStorage(data);
-  repopulateTaskFromStorage();
+  repopulateTaskFromStorage(data);
 }

@@ -35,7 +35,7 @@ export function saveTasksToLocalStorage(tasks) {
 }
 
 export function updateLocalStorage(e, completeTask) {
-  const data = JSON.parse(localStorage.getItem("tasks"));
+  const data = getTasksLocalStorage();
 
   const taskName = e.target.nextElementSibling.textContent;
   const updatedData = data.map((ele) => {

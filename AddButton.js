@@ -3,14 +3,14 @@ import {
   handleTrashClick,
   handleTaskClick,
 } from "./EventListeners.js";
-import { saveToLocalStorage } from "./savingData.js";
+import { saveToLocalStorage, getTasksLocalStorage } from "./savingData.js";
 
 const taskNameInput = document.querySelector(".taskName");
 const dateSelector = document.querySelector(".dateSelector");
 const prioritySelector = document.querySelector(".prioritySelect");
 
 export const colour = {
-  0: "",
+  0: "white",
   1: "red",
   2: "orange",
   3: "yellow",
@@ -37,8 +37,7 @@ export function handleAddButtonClick() {
 
   //adding class to element
   taskElement.classList.add("task");
-
-  taskElement.classList.add(colour[parseInt(priority)]);
+  taskElement.classList.add(colour[parseInt(priority) || 0]);
 
   priorityElement.classList.add("priority");
   taskCompleteElement.classList.add("fa-regular", "fa-circle", "circle");
@@ -63,11 +62,13 @@ export function handleAddButtonClick() {
 
   saveToLocalStorage();
 
+  const data = getTasksLocalStorage();
+
   taskCompleteElement.addEventListener("click", handleTaskCompletedClick);
-  trashElement.addEventListener("click", handleTrashClick);
+  trashElement.addEventListener("click", () => handleTrashClick(data));
 
   document.querySelectorAll(".task").forEach((task) => {
-    task.addEventListener("click", handleTaskClick);
+    task.addEventListener("click", (e) => handleTaskClick(e, data));
   });
 
   const elementClasses = [

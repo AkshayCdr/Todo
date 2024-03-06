@@ -51,14 +51,22 @@ export function handleClearButtonClick() {
 
 let completeTask = false;
 
+function setTaskComplete(event) {
+  event.target.classList.remove("fa-regular", "fa-circle");
+  event.target.classList.add("fa-solid", "fa-check");
+}
+
+function setTaskNotComplete(event) {
+  event.target.classList.remove("fa-solid", "fa-check");
+  event.target.classList.add("fa-regular", "fa-circle");
+}
+
 export function handleTaskCompletedClick(event) {
   if (event.target.classList.contains("fa-regular", "fa-circle")) {
-    event.target.classList.remove("fa-regular", "fa-circle");
-    event.target.classList.add("fa-solid", "fa-check");
+    setTaskComplete(event);
     completeTask = true;
   } else if (event.target.classList.contains("fa-solid", "fa-check")) {
-    event.target.classList.remove("fa-solid", "fa-check");
-    event.target.classList.add("fa-regular", "fa-circle");
+    setTaskNotComplete(event);
     completeTask = false;
   }
 
@@ -67,7 +75,6 @@ export function handleTaskCompletedClick(event) {
     ? (taskName.style.textDecoration = "")
     : (taskName.style.textDecoration = "line-through");
 
-  // saveToLocalStorage();
   updateLocalStorage(event, completeTask);
 }
 
@@ -80,48 +87,41 @@ export function handleTrashClick(event, data) {
   );
   saveTasksToLocalStorage(updatedData);
   repopulateTaskFromStorage(updatedData);
-  // task.remove();
+}
+
+function showModal() {
+  blur.classList.remove("hide");
+  modal.classList.remove("hide");
+}
+
+function hideModal() {
+  modal.classList.add("hide");
+  blur.classList.add("hide");
 }
 
 export function handleTaskClick(event, data) {
-  //change the data in the modal
-  // console.log(data);
   event.stopPropagation();
 
   addDataInModal(event, data);
-
-  const modal = document.querySelector(".modal");
-  const blur = document.querySelector(".blur");
-  //blur visible
-  blur.classList.remove("hide");
-  //modal visible
-  modal.classList.remove("hide");
+  showModal();
 
   blur.addEventListener("click", () => handleBlurClick(data));
   del.addEventListener("click", () => handleModalDeleteClick(data));
   edit.addEventListener("click", (event) => handleModalEditClick(event, data));
 }
 
-export function handleBlurClick(data) {
-  console.log(data);
-  modal.classList.add("hide");
-  blur.classList.add("hide");
+export function handleBlurClick() {
+  hideModal();
   if (edit.classList.contains("hide")) changeModalMode(modal);
-  // repopulateTaskFromStorage(data);
 }
 
 export function handleModalDeleteClick(data) {
   const taskName = modal.querySelector(".modalTaskName");
-
-  //update Data
   const updatedData = data.filter(
     (task) => task.taskName !== taskName.textContent
   );
-  //save Data after delete
   saveTasksToLocalStorage(updatedData);
-  //remove blur and modal
-  handleBlurClick(updatedData);
-  //reload the page
+  handleBlurClick();
   repopulateTaskFromStorage(updatedData);
 }
 
@@ -133,30 +133,28 @@ export function toShowEditButton() {
   edit.classList.remove("hide");
   save.classList.add("hide");
 }
+
 let name;
+let dataToSave;
 export function handleModalEditClick(event, data) {
   event.stopPropagation();
-  //show save button
-  console.log(data);
+  console.log(event);
+  console.log(event.target);
   debugger;
+  dataToSave = data;
   toShowSaveButton();
   name = editModal(modal);
-  console.log(name);
-
-  save.addEventListener("click", (event) => handleModalSaveClick(event, data));
+  save.addEventListener("click", (event) => handleModalSaveClick(event));
 }
 
-function handleModalSaveClick(event, data) {
-  event.stopPropagation();
-  //show edit button
-  console.log(data);
+function handleModalSaveClick(event) {
   debugger;
+  event.stopPropagation();
   toShowEditButton();
-  //save data to local storage
-  getDataModal(name, data);
-  //get data from local storage and change the modal
+  //get Data from modal and store the data to the local storage
+  getDataModal(name, dataToSave);
   updateModal(modal);
-  //repopulate task
+  //main function will get updated data and repopulate the dom with new value
   main();
 }
 

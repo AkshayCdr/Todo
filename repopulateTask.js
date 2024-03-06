@@ -3,7 +3,14 @@ import {
   handleTrashClick,
   handleTaskClick,
 } from "./EventListeners.js";
-import { colour } from "./AddButton.js";
+
+const colour = {
+  0: "white",
+  1: "red",
+  2: "orange",
+  3: "yellow",
+  4: "green",
+};
 
 export function repopulateTaskFromStorage(data) {
   const tasksContainerElement = document.querySelector(".tasks");
@@ -53,7 +60,9 @@ export function repopulateTaskFromStorage(data) {
     tasksContainerElement.append(taskElement);
 
     taskCompleteElement.addEventListener("click", handleTaskCompletedClick);
-    trashElement.addEventListener("click", (e) => handleTrashClick(e, data));
+    trashElement.addEventListener("click", (event) =>
+      handleTrashClick(event, data)
+    );
 
     document.querySelectorAll(".task").forEach((task) => {
       task.addEventListener("click", (e) => handleTaskClick(e, data));

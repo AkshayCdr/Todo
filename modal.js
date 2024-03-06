@@ -1,8 +1,8 @@
 import { toShowEditButton } from "./EventListeners.js";
 import { saveTasksToLocalStorage } from "./savingData.js";
 
-export function addDataInModal(e, data) {
-  const task = e.target;
+export function addDataInModal(event, data) {
+  const task = event.target;
 
   //return if the element is not task
   const tasknameElement = task.querySelector(".taskHeading");
@@ -155,16 +155,17 @@ export function getDataModal(name, data) {
   saveTasksToLocalStorage(updatedData);
 }
 
-function ShowEditButton() {
-  const edit = document.querySelector(".edit");
-  const save = document.querySelector(".save");
-  edit.classList.remove("hide");
-  save.classList.add("hide");
-}
+// function ShowEditButton() {
+//   const edit = document.querySelector(".edit");
+//   const save = document.querySelector(".save");
+//   edit.classList.remove("hide");
+//   save.classList.add("hide");
+// }
 
 export function changeModalMode(modal) {
   // console.log("changed the mode ");
-  ShowEditButton();
+  // ShowEditButton();
+  toShowEditButton();
   //modal elements to append
   const modalHeader = modal.querySelector(".modalHeader");
   const modalDescr = modal.querySelector(".disc");

@@ -1,4 +1,8 @@
-import { updateLocalStorage, saveTasksToLocalStorage } from "./savingData.js";
+import {
+  updateLocalStorage,
+  saveTasksToLocalStorage,
+  addToLocalStorage,
+} from "./savingData.js";
 
 import {
   addDataInModal,
@@ -9,50 +13,82 @@ import {
 } from "./modal.js";
 import { repopulateTaskFromStorage } from "./repopulateTask.js";
 
+import { main } from "./script.js";
+
+const modal = document.querySelector(".modal");
+const blur = document.querySelector(".blur");
+const del = document.querySelector(".delete");
+const edit = document.querySelector(".edit");
+const save = modal.querySelector(".save");
+
+const taskNameInput = document.querySelector(".taskName");
+const dateSelector = document.querySelector(".dateSelector");
+const prioritySelector = document.querySelector(".prioritySelect");
+const descriptionInput = document.querySelector(".description");
+
+export function handleAddButtonClick() {
+  if (!taskNameInput.value) return null;
+  const newTask = {
+    taskName: taskNameInput.value,
+    date: dateSelector.value,
+    priority: prioritySelector.value,
+    description: descriptionInput.value,
+  };
+  addToLocalStorage(newTask);
+
+  taskNameInput.value = "";
+  dateSelector.value = "";
+  prioritySelector.value = "";
+  descriptionInput.value = "";
+
+  main();
+}
+
 export function handleClearButtonClick() {
   saveTasksToLocalStorage([]);
-  repopulateTaskFromStorage();
+  main();
 }
 
 let completeTask = false;
 
-export function handleTaskCompletedClick(e) {
-  if (e.target.classList.contains("fa-regular", "fa-circle")) {
-    e.target.classList.remove("fa-regular", "fa-circle");
-    e.target.classList.add("fa-solid", "fa-check");
+export function handleTaskCompletedClick(event) {
+  if (event.target.classList.contains("fa-regular", "fa-circle")) {
+    event.target.classList.remove("fa-regular", "fa-circle");
+    event.target.classList.add("fa-solid", "fa-check");
     completeTask = true;
-  } else if (e.target.classList.contains("fa-solid", "fa-check")) {
-    e.target.classList.remove("fa-solid", "fa-check");
-    e.target.classList.add("fa-regular", "fa-circle");
+  } else if (event.target.classList.contains("fa-solid", "fa-check")) {
+    event.target.classList.remove("fa-solid", "fa-check");
+    event.target.classList.add("fa-regular", "fa-circle");
     completeTask = false;
   }
 
-  const taskName = e.target.nextElementSibling;
+  const taskName = event.target.nextElementSibling;
   taskName.style.textDecoration === "line-through"
     ? (taskName.style.textDecoration = "")
     : (taskName.style.textDecoration = "line-through");
 
   // saveToLocalStorage();
-  updateLocalStorage(e, completeTask);
+  updateLocalStorage(event, completeTask);
 }
 
-export function handleTrashClick(e, data) {
-  const task = e.target.parentElement;
+export function handleTrashClick(event, data) {
+  const task = event.target.parentElement;
   const taskName = task.querySelector(".taskHeading");
 
   const updatedData = data.filter(
     (task) => task.taskName !== taskName.textContent
   );
-
   saveTasksToLocalStorage(updatedData);
-
-  task.remove();
+  repopulateTaskFromStorage(updatedData);
+  // task.remove();
 }
 
-export function handleTaskClick(e, data) {
+export function handleTaskClick(event, data) {
   //change the data in the modal
+  // console.log(data);
+  event.stopPropagation();
 
-  addDataInModal(e, data);
+  addDataInModal(event, data);
 
   const modal = document.querySelector(".modal");
   const blur = document.querySelector(".blur");
@@ -60,16 +96,21 @@ export function handleTaskClick(e, data) {
   blur.classList.remove("hide");
   //modal visible
   modal.classList.remove("hide");
+
+  blur.addEventListener("click", () => handleBlurClick(data));
+  del.addEventListener("click", () => handleModalDeleteClick(data));
+  edit.addEventListener("click", (event) => handleModalEditClick(event, data));
 }
 
-export function handleBlurClick(modal, blur, edit, data) {
+export function handleBlurClick(data) {
+  console.log(data);
   modal.classList.add("hide");
   blur.classList.add("hide");
   if (edit.classList.contains("hide")) changeModalMode(modal);
-  repopulateTaskFromStorage(data);
+  // repopulateTaskFromStorage(data);
 }
 
-export function handleModalDeleteClick(modal, blur, edit, data) {
+export function handleModalDeleteClick(data) {
   const taskName = modal.querySelector(".modalTaskName");
 
   //update Data
@@ -79,40 +120,44 @@ export function handleModalDeleteClick(modal, blur, edit, data) {
   //save Data after delete
   saveTasksToLocalStorage(updatedData);
   //remove blur and modal
-  handleBlurClick(modal, blur, edit, data);
+  handleBlurClick(updatedData);
   //reload the page
   repopulateTaskFromStorage(updatedData);
 }
 
-function toShowSaveButton(save, edit) {
+function toShowSaveButton() {
   edit.classList.add("hide");
   save.classList.remove("hide");
 }
-export function toShowEditButton(save, edit) {
+export function toShowEditButton() {
   edit.classList.remove("hide");
   save.classList.add("hide");
 }
 let name;
-export function handleModalEditClick(modal, data) {
+export function handleModalEditClick(event, data) {
+  event.stopPropagation();
   //show save button
-  const save = modal.querySelector(".save");
-  const edit = modal.querySelector(".edit");
-
-  toShowSaveButton(save, edit);
+  console.log(data);
+  debugger;
+  toShowSaveButton();
   name = editModal(modal);
+  console.log(name);
 
-  save.addEventListener("click", () =>
-    handleModalSaveClick(save, edit, modal, data)
-  );
+  save.addEventListener("click", (event) => handleModalSaveClick(event, data));
 }
 
-function handleModalSaveClick(save, edit, modal, data) {
+function handleModalSaveClick(event, data) {
+  event.stopPropagation();
   //show edit button
-  toShowEditButton(save, edit);
+  console.log(data);
+  debugger;
+  toShowEditButton();
   //save data to local storage
   getDataModal(name, data);
   //get data from local storage and change the modal
   updateModal(modal);
+  //repopulate task
+  main();
 }
 
 export function handleSortButtonClick(data) {

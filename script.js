@@ -1,42 +1,32 @@
 import { repopulateTaskFromStorage } from "./repopulateTask.js";
-import { handleAddButtonClick } from "./AddButton.js";
 import {
-  handleBlurClick,
-  handleModalDeleteClick,
-  handleModalEditClick,
   handleClearButtonClick,
   handleSortButtonClick,
+  handleAddButtonClick,
 } from "./EventListeners.js";
 import { getTasksLocalStorage } from "./savingData.js";
 
-const addButton = document.querySelector(".add");
-const clearButton = document.querySelector(".clear");
-const sortButton = document.querySelector(".sort");
+export function main() {
+  const addButton = document.querySelector(".add");
+  const clearButton = document.querySelector(".clear");
+  const sortButton = document.querySelector(".sort");
 
-const modal = document.querySelector(".modal");
-const blur = document.querySelector(".blur");
-const del = document.querySelector(".delete");
-const edit = document.querySelector(".edit");
+  setMinimumDate();
 
-const data = getTasksLocalStorage();
+  const data = getTasksLocalStorage();
 
-setMinimumDate();
+  if (data) repopulateTaskFromStorage(data);
 
-repopulateTaskFromStorage(data);
+  addButton.addEventListener("click", handleAddButtonClick);
+  clearButton.addEventListener("click", () => handleClearButtonClick());
+  sortButton.addEventListener("click", () => handleSortButtonClick(data));
 
-addButton.addEventListener("click", handleAddButtonClick);
-clearButton.addEventListener("click", handleClearButtonClick);
-sortButton.addEventListener("click", () => handleSortButtonClick(data));
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") handleAddButtonClick();
+  });
+}
 
-window.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") handleAddButtonClick();
-});
-
-blur.addEventListener("click", () => handleBlurClick(modal, blur, edit, data));
-del.addEventListener("click", () =>
-  handleModalDeleteClick(modal, blur, edit, data)
-);
-edit.addEventListener("click", () => handleModalEditClick(modal, data));
+main();
 
 function setMinimumDate() {
   const dateElement = document.querySelector(".dateSelector");

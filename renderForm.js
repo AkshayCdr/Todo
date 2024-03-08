@@ -1,3 +1,6 @@
+import { addToDatabase } from "./database.js";
+import { renderTasks } from "./renderTaks.js";
+
 export function renderForm() {
   //create element
   const formElement = document.createElement("form");
@@ -6,11 +9,12 @@ export function renderForm() {
   const priorityElement = document.createElement("select");
   const descriptionElement = document.createElement("textarea");
   const submitElement = document.createElement("button");
+  const tasksElement = document.createElement("section");
 
   //attach attributes
   //   formElement.setAttribute("method", "post");
   tasknameElement.setAttribute("type", "text");
-  tasknameElement.setAttribute("name", "taskname");
+  tasknameElement.setAttribute("name", "name");
   dateElement.setAttribute("type", "date");
   dateElement.setAttribute("name", "date");
   submitElement.setAttribute("type", "submit");
@@ -23,10 +27,11 @@ export function renderForm() {
   dateElement.classList.add("form-date");
   priorityElement.classList.add("form-priority");
   descriptionElement.classList.add("form-description");
+  tasksElement.classList.add("form-tasks");
 
   //setting content
   submitElement.textContent = "Submit";
-  const priorityOptions = ["Select", "Low", "Medium", "High"];
+  const priorityOptions = ["Low", "Medium", "High"];
   priorityOptions.forEach((optionText, index) => {
     const option = document.createElement("option");
     // option.value = optionText.toLowerCase();
@@ -43,13 +48,25 @@ export function renderForm() {
 
   const formContainer = document.querySelector(".form-container");
   formContainer.append(formElement);
+  formContainer.append(tasksElement);
 
   formElement.addEventListener("submit", (event) => {
     event.preventDefault();
+    try {
+      addData();
+      renderTasks();
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  function addData() {
     const formData = new FormData(formElement);
     const data = Object.fromEntries(formData);
-    // console.log(formData.get("taskname"));
-    console.log(data);
-    console.log(formData);
-  });
+    if (formData.get("name")) {
+      addToDatabase(data);
+    } else {
+      throw new Error("Enter task name");
+    }
+  }
 }

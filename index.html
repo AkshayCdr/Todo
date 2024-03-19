@@ -33,8 +33,24 @@
           name="taskName"
           id=""
           class="taskName"
-          placeholder="Add new Task"
+          placeholder="Task name"
         />
+        <input
+          type="text"
+          name="description"
+          id="description"
+          class="description"
+          placeholder="description"
+        />
+
+        <select name="priority" id="prioritySelect" class="prioritySelect">
+          <option value="">--Choose Priority--</option>
+          <option value="1">Priority 1</option>
+          <option value="2">Priority 2</option>
+          <option value="3">Priority 3</option>
+          <option value="4">Priority 4</option>
+        </select>
+        <input type="date" name="" id="dateSelector" class="dateSelector" />
         <!-- <input type="button" value="add" class="button" /> -->
         <button class="btn">
           <i class="fa-solid fa-plus fa-lg" style="color: #74c0fc"></i>
@@ -45,7 +61,7 @@
         <div class="task">
           <i class="fa-regular fa-circle circle"></i>
           <p>First Task</p>
-          <p>
+          <div class="date">12/01/2024</div>
           <i class="fa-solid fa-trash trash"></i>
         </div>
       </div>
@@ -53,9 +69,33 @@
         <div class="task">
           <i class="fa-solid fa-check circle"></i>
           <p>Second Task</p>
+          <div class="date">12/01/2024</div>
           <i class="fa-solid fa-trash trash"></i>
         </div>
       </div> -->
     </div>
+
+    <div class="modal">
+      <div class="modalHeader">
+        <h1 class="modalTaskName">Task Name</h1>
+        <p class="modalDate">12/04/2022</p>
+      </div>
+      <div class="line"></div>
+      <div class="modalContent">
+        <div class="disc">
+          <label for="Description">Description :</label>
+          <p class="modalDescription">Description</p>
+        </div>
+        <div class="prior">
+          <label for="Priority">Priority :</label>
+          <p class="modalPriority">Priority</p>
+        </div>
+      </div>
+      <div class="icons">
+        <i class="fa-solid fa-pen edit"></i>
+        <i class="fa-solid fa-trash delete"></i>
+      </div>
+    </div>
+    <div class="blur"></div>
   </body>
 </html>

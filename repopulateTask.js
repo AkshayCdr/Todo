@@ -16,7 +16,7 @@ export function repopulateTaskFromStorage(data) {
   const tasksContainerElement = document.querySelector(".tasks");
 
   tasksContainerElement.innerHTML = "";
-
+  if (!data) return new Error("No data to repopulate the task");
   // Iterate over tasks and create elements
   data.forEach((taskData) => {
     const taskElement = document.createElement("div");
@@ -29,9 +29,7 @@ export function repopulateTaskFromStorage(data) {
 
     // adding classes
     taskElement.classList.add("task");
-
     taskElement.classList.add(colour[parseInt(taskData.priority) || 0]);
-
     priorityElement.classList.add("priority");
     if (taskData.overlined) {
       taskCompleteElement.classList.add("fa-solid", "fa-check", "circle");
@@ -49,7 +47,6 @@ export function repopulateTaskFromStorage(data) {
     priorityElement.textContent = taskData.priority;
 
     // adding elements
-
     taskElement.append(priorityElement);
     taskElement.append(taskCompleteElement);
     taskElement.append(taskHeading);
@@ -78,7 +75,6 @@ export function repopulateTaskFromStorage(data) {
 
     document.querySelectorAll(".task").forEach((task) => {
       elementClasses.forEach((ele) => {
-        // console.log(ele);
         task.querySelector(ele).addEventListener("click", (event) => {
           event.stopPropagation();
         });
